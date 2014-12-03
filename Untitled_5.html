@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+        <title>Untitled 5</title>
+        <link rel="stylesheet" href="jquery-ui-1.11.2.custom/jquery-ui.min.css" type="text/css" media="all"/>
+        <script src="jquery-ui-1.11.2.custom/external/jquery/jquery.js" type="text/javascript"></script>
+        <script src="jquery-ui-1.11.2.custom/jquery-ui.min.js" type="text/javascript"></script>
+        <!--		<link rel="stylesheet" type="text/css" href="https://jqueryui.com/resources/demos/style.css"/>
+            -->
+        <script>
+            (function () {
+                var a,
+                    b,
+                    c,
+                    d,
+                    e,
+                    f,
+                    g,
+                    h,
+                    i,
+                    j,
+                    k,
+                    l,
+                    m,
+                    n,
+                    o,
+                    p,
+                    q,
+                    r,
+                    s,
+                    t,
+                    u,
+                    v,
+                    w,
+                    x,
+                    y,
+                    z,
+                    A,
+                    B,
+                    C,
+                    D,
+                    E,
+                    F,
+                    G,
+                    H,
+                    I,
+                    J,
+                    K,
+                    L,
+                    M,
+                    N,
+                    O,
+                    P,
+                    Q,
+                    R,
+                    S,
+                    T,
+                    U,
+                    V,
+                    W = [].slice,
+                    X = {}.hasOwnProperty,
+                    Y = function (a, b) {
+                        function c() {
+                            this.constructor = a
+                        }
+                        for (var d in b) 
+                            X.call(b, d) && (a[d] = b[d]);
+                        return c.prototype = b.prototype, a.prototype = new c, a.__super__ = b.prototype, a
+                    },
+                    Z = [].indexOf || function (a) {
+                        for (var b = 0, c = this.length; c > b; b++) 
+                            if (b in this && this[b] === a) 
+                                return b;
+                    return -1
+                    };
+                for (t = {
+                    catchupTime: 500,
+                    initialRate: .03,
+                    minTime: 500,
+                    ghostTime: 500,
+                    maxProgressPerFrame: 10,
+                    easeFactor: 1.25,
+                    startOnPageLoad: !0,
+                    restartOnPushState: !0,
+                    restartOnRequestAfter: 500,
+                    target: "body",
+                    elements: {
+                        checkInterval: 100,
+                        selectors: ["body"]
+                    },
+                    eventLag: {
+                        minSamples: 10,
+                        sampleCount: 3,
+                        lagThreshold: 3
+                    },
+                    ajax: {
+                        trackMethods: ["GET"],
+                        trackWebSockets: !0,
+                        ignoreURLs: []
+                    }
+                }, B = function () {
+                    var a; return null != (a = "undefined" != typeof performance && null !== performance && "function" == typeof performance.now ? performance.now() : void 0) ? a : + new Date
+                }, D = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame, s = window.cancelAnimationFrame || window.mozCancelAnimationFrame, null == D && (D = function (a) {
+                    return setTimeout(a, 50)
+                }, s = function (a) {
+                    return clearTimeout(a)
+                }), F = function (a) {
+                    var b,
+                    c; return b = B(), (c = function () {
+                        var d; return d = B() - b, d >= 33 ? (b = B(), a(d, function () {
+                            return D(c)
+                        })) : setTimeout(c, 33 - d)
+                    })
+                    ()
+                }, E = function () {
+                    var a,
+                    b,
+                    c; return c = arguments[0], b = arguments[1], a = 3 <= arguments.length ? W.call(arguments, 2) : [], "function" == typeof c[b] ? c[b].apply(c, a) : c[b]
+                }, u = function () {
+                    var a,
+                    b,
+                    c,
+                    d,
+                    e,
+                    f,
+                    g; for (b = arguments[0], d = 2 <= arguments.length ? W.call(arguments, 1) : [], f = 0, g = d.length; g > f; f++) if (c = d[f]) for (a in c) X.call(c, a) && (e = c[a], null != b[a] && "object" == typeof b[a] && null != e && "object" == typeof e ? u(b[a], e) : b[a] = e);
+                    return b
+                }, p = function (a) {
+                    var b,
+                        c,
+                        d,
+                        e,
+                        f;
+                    for (c = b = 0, e = 0, f = a.length; f > e; e++) d = a[e],
+                    c += Math.abs(d),
+                    b++;
+                    return c / b
+                }, w = function (a, b) {
+                    var c,
+                        d,
+                        e;
+                    if (null == a && (a = "options"),
+                    null == b && (b = !0),
+                    e = document.querySelector("[data-pace-" + a + "]")) {
+                        if (c = e.getAttribute("data-pace-" + a), !b) return c;
+                        try {
+                            return JSON.parse(c)
+                        } catch (f) {
+                            return d = f, "undefined" != typeof console && null !== console ? console.error("Error parsing inline pace options", d) : void 0
+                        }
+                    }
+                }, g = function () {
+                    function a() {}
+                    return a.prototype.on = function (a, b, c, d) {
+                        var e;
+                        return null == d && (d = !1), null == this.bindings && (this.bindings = {}), null == (e = this.bindings)[a] && (e[a] = []), this.bindings[a].push({
+                            handler: b,
+                            ctx: c,
+                            once: d
+                        })
+                    }, a.prototype.once = function (a, b, c) {
+                        return this.on(a, b, c, !0)
+                    }, a.prototype.off = function (a, b) {
+                        var c,
+                            d,
+                            e;
+                        if (null != (null != (d = this.bindings) ? d[a] : void 0)) {
+                            if (null == b) return delete this.bindings[a];
+                            for (c = 0, e = []; c < this.bindings[a].length;) e.push(this.bindings[a][c].handler === b ? this.bindings[a].splice(c, 1) : c++);
+                            return e
+                        }
+                    }, a.prototype.trigger = function () {
+                        var a,
+                            b,
+                            c,
+                            d,
+                            e,
+                            f,
+                            g,
+                            h,
+                            i;
+                        if (c = arguments[0], a = 2 <= arguments.length ? W.call(arguments, 1) : [], null != (g = this.bindings) ? g[c] : void 0) {
+                            for (e = 0, i = []; e < this.bindings[c].length;) h = this.bindings[c][e],
+                            d = h.handler,
+                            b = h.ctx,
+                            f = h.once,
+                            d.apply(null != b ? b : this, a),
+                            i.push(f ? this.bindings[c].splice(e, 1) : e++);
+                            return i
+                        }
+                    }, a
+                }(), null == window.Pace && (window.Pace = {}), u(Pace, g.prototype), C = Pace.options = u({}, t, window.paceOptions, w()), T = [
+                    "ajax", "document", "eventLag", "elements"
+                ], P = 0, R = T.length;
+                R > P;
+                P++) 
+                    J = T[P],
+                    C[J] === !0 && (C[J] = t[J]);
+                i = function (a) {
+                    function b() {
+                        return U = b.__super__.constructor.apply(this, arguments)
+                    }
+                    return Y(b, a), b
+                }(Error),
+                b = function () {
+                    function a() {
+                        this.progress = 0
+                    }
+                    return a.prototype.getElement = function () {
+                        var a;
+                        if (null == this.el) {
+                            if (a = document.querySelector(C.target), !a) 
+                                throw new i;
+                            this.el = document.createElement("div"),
+                            this.el.className = "pace pace-active",
+                            document.body.className = document.body.className.replace(/pace-done/g, ""),
+                            document.body.className += " pace-running",
+                            this.el.innerHTML = '<div class="pace-progress">\n <div class="pace-progress-inner"></div>\n</div>\n<div class="pace-activity"></div>',
+                            null != a.firstChild ? a.insertBefore(this.el, a.firstChild) : a.appendChild(this.el)
+                        }
+                        return this.el
+                    }, a.prototype.finish = function () {
+                        var a;
+                        return a = this.getElement(), a.className = a.className.replace("pace-active", ""), a.className += " pace-inactive", document.body.className = document.body.className.replace("pace-running", ""), document.body.className += " pace-done"
+                    }, a.prototype.update = function (a) {
+                        return this.progress = a, this.render()
+                    }, a.prototype.destroy = function () {
+                        try {
+                            this.getElement().parentNode.removeChild(this.getElement())
+                        } catch (a) {
+                            i = a
+                        }
+                        return this.el = void 0
+                    }, a.prototype.render = function () {
+                        var a,
+                            b;
+                        return null == document.querySelector(C.target) ? !1 : (a = this.getElement(), a.children[0].style.width = "" + this.progress + "%", (!this.lastRenderedProgress || this.lastRenderedProgress | 0 !== this.progress | 0) && (a.children[0].setAttribute("data-progress-text", "" + (0 | this.progress) + "%"), this.progress >= 100 ? b = "99" : (b = this.progress < 10 ? "0" : "", b += 0 | this.progress), a.children[0].setAttribute("data-progress", "" + b)), this.lastRenderedProgress = this.progress)
+                    }, a.prototype.done = function () {
+                        return this.progress >= 100
+                    }, a
+                }(),
+                h = function () {
+                    function a() {
+                        this.bindings = {}
+                    }
+                    return a.prototype.trigger = function (a, b) {
+                        var c,
+                            d,
+                            e,
+                            f,
+                            g;
+                        if (null != this.bindings[a]) {
+                            for (f = this.bindings[a], g = [], d = 0, e = f.length; e > d; d++) 
+                                c = f[d],
+                                g.push(c.call(this, b));
+                            return g
+                        }
+                    }, a.prototype.on = function (a, b) {
+                        var c;
+                        return null == (c = this.bindings)[a] && (c[a] = []), this.bindings[a].push(b)
+                    }, a
+                }(),
+                O = window.XMLHttpRequest,
+                N = window.XDomainRequest,
+                M = window.WebSocket,
+                v = function (a, b) {
+                    var c,
+                        d,
+                        e,
+                        f;
+                    f = [];
+                    for (d in b.prototype) 
+                        try {
+                            e = b.prototype[d],
+                            f.push(null == a[d] && "function" != typeof e ? a[d] = e : void 0)
+                        } catch (g) {
+                            c = g
+                        }
+                        return f
+                },
+                z = [],
+                Pace.ignore = function () {
+                    var a,
+                        b,
+                        c;
+                    return b = arguments[0], a = 2 <= arguments.length ? W.call(arguments, 1) : [], z.unshift("ignore"), c = b.apply(null, a), z.shift(), c
+                },
+                Pace.track = function () {
+                    var a,
+                        b,
+                        c;
+                    return b = arguments[0], a = 2 <= arguments.length ? W.call(arguments, 1) : [], z.unshift("track"), c = b.apply(null, a), z.shift(), c
+                },
+                I = function (a) {
+                    var b;
+                    if (null == a && (a = "GET"),
+                    "track" === z[0]) 
+                        return "force";
+                    if (!z.length && C.ajax) {
+                        if ("socket" === a && C.ajax.trackWebSockets) 
+                            return !0;
+                        if (b = a.toUpperCase(), Z.call(C.ajax.trackMethods, b) >= 0) 
+                            return !0
+                    }
+                    return !1
+                },
+                j = function (a) {
+                    function b() {
+                        var a,
+                            c = this;
+                        b.__super__.constructor.apply(this, arguments),
+                        a = function (a) {
+                            var b;
+                            return b = a.open, a.open = function (d, e) {
+                                return I(d) && c.trigger("request", {
+                                    type: d,
+                                    url: e,
+                                    request: a
+                                }), b.apply(a, arguments)
+                            }
+                        },
+                        window.XMLHttpRequest = function (b) {
+                            var c;
+                            return c = new O(b), a(c), c
+                        };
+                        try {
+                            v(window.XMLHttpRequest, O)
+                        } catch (d) {}
+                        if (null != N) {
+                            window.XDomainRequest = function () {
+                                var b;
+                                return b = new N, a(b), b
+                            };
+                            try {
+                                v(window.XDomainRequest, N)
+                            } catch (d) {}
+                        }
+                        if (null != M && C.ajax.trackWebSockets) {
+                            window.WebSocket = function (a, b) {
+                                var d;
+                                return d = null != b ? new M(a, b) : new M(a), I("socket") && c.trigger("request", {
+                                    type: "socket",
+                                    url: a,
+                                    protocols: b,
+                                    request: d
+                                }), d
+                            };
+                            try {
+                                v(window.WebSocket, M)
+                            } catch (d) {}
+                        }
+                    }
+                    return Y(b, a), b
+                }(h),
+                Q = null,
+                x = function () {
+                    return null == Q && (Q = new j), Q
+                },
+                H = function (a) {
+                    var b,
+                        c,
+                        d,
+                        e;
+                    for (e = C.ajax.ignoreURLs, c = 0, d = e.length; d > c; c++) 
+                        if (b = e[c], "string" == typeof b) {
+                            if (-1 !== a.indexOf(b)) 
+                                return !0
+                        }
+                    else if (b.test(a)) 
+                        return !0;
+                    return !1
+                },
+                x().on("request", function (b) {
+                    var c,
+                        d,
+                        e,
+                        f,
+                        g;
+                    return f = b.type, e = b.request, g = b.url, H(g) ? void 0 : Pace.running || C.restartOnRequestAfter === !1 && "force" !== I(f) ? void 0 : (d = arguments, c = C.restartOnRequestAfter || 0, "boolean" == typeof c && (c = 0), setTimeout(function () {
+                        var b,
+                            c,
+                            g,
+                            h,
+                            i,
+                            j;
+                        if (b = "socket" === f ? e.readyState < 2 : 0 < (h = e.readyState) && 4 > h) {
+                            for (Pace.restart(), i = Pace.sources, j = [], c = 0, g = i.length; g > c; c++) {
+                                if (J = i[c], J instanceof a) {
+                                    J.watch.apply(J, d);
+                                    break
+                                }
+                                j.push(void 0)
+                            }
+                            return j
+                        }
+                    }, c))
+                }),
+                a = function () {
+                    function a() {
+                        var a = this;
+                        this.elements = [],
+                        x().on("request", function () {
+                            return a.watch.apply(a, arguments)
+                        })
+                    }
+                    return a.prototype.watch = function (a) {
+                        var b,
+                            c,
+                            d,
+                            e;
+                        return d = a.type, b = a.request, e = a.url, H(e) ? void 0 : (c = "socket" === d ? new m(b) : new n(b), this.elements.push(c))
+                    }, a
+                }(),
+                n = function () {
+                    function a(a) {
+                        var b,
+                            c,
+                            d,
+                            e,
+                            f,
+                            g,
+                            h = this;
+                        if (this.progress = 0, null != window.ProgressEvent) 
+                            for (c = null, a.addEventListener("progress", function (a) {
+                                return h.progress = a.lengthComputable ? 100 * a.loaded / a.total : h.progress + (100 - h.progress) / 2
+                            }), g = [
+                                "load", "abort", "timeout", "error"
+                            ], d = 0, e = g.length; e > d; d++) 
+                                b = g[d],
+                                a.addEventListener(b, function () {
+                                    return h.progress = 100
+                                });
+                    else 
+                            f = a.onreadystatechange,
+                            a.onreadystatechange = function () {
+                                var b;
+                                return 0 === (b = a.readyState) || 4 === b ? h.progress = 100 : 3 === a.readyState && (h.progress = 50), "function" == typeof f ? f.apply(null, arguments) : void 0
+                            }
+                    }
+                    return a
+                }(),
+                m = function () {
+                    function a(a) {
+                        var b,
+                            c,
+                            d,
+                            e,
+                            f = this;
+                        for (this.progress = 0, e = [
+                            "error", "open"
+                        ], c = 0, d = e.length; d > c; c++) 
+                            b = e[c],
+                            a.addEventListener(b, function () {
+                                return f.progress = 100
+                            })
+                    }
+                    return a
+                }(),
+                d = function () {
+                    function a(a) {
+                        var b,
+                            c,
+                            d,
+                            f;
+                        for (null == a && (a = {}), this.elements = [], null == a.selectors && (a.selectors = []), f = a.selectors, c = 0, d = f.length; d > c; c++) 
+                            b = f[c],
+                            this.elements.push(new e(b))
+                    }
+                    return a
+                }(),
+                e = function () {
+                    function a(a) {
+                        this.selector = a,
+                        this.progress = 0,
+                        this.check()
+                    }
+                    return a.prototype.check = function () {
+                        var a = this;
+                        return document.querySelector(this.selector) ? this.done() : setTimeout(function () {
+                            return a.check()
+                        }, C.elements.checkInterval)
+                    }, a.prototype.done = function () {
+                        return this.progress = 100
+                    }, a
+                }(),
+                c = function () {
+                    function a() {
+                        var a,
+                            b,
+                            c = this;
+                        this.progress = null != (b = this.states[document.readyState]) ? b : 100,
+                        a = document.onreadystatechange,
+                        document.onreadystatechange = function () {
+                            return null != c.states[document.readyState] && (c.progress = c.states[document.readyState]), "function" == typeof a ? a.apply(null, arguments) : void 0
+                        }
+                    }
+                    return a.prototype.states = {
+                        loading: 0,
+                        interactive: 50,
+                        complete: 100
+                    }, a
+                }(),
+                f = function () {
+                    function a() {
+                        var a,
+                            b,
+                            c,
+                            d,
+                            e,
+                            f = this;
+                        this.progress = 0,
+                        a = 0,
+                        e = [],
+                        d = 0,
+                        c = B(),
+                        b = setInterval(function () {
+                            var g;
+                            return g = B() - c - 50, c = B(), e.push(g), e.length > C.eventLag.sampleCount && e.shift(), a = p(e), ++d >= C.eventLag.minSamples && a < C.eventLag.lagThreshold ? (f.progress = 100, clearInterval(b)) : f.progress = 100 * (3 / (a + 3))
+                        }, 50)
+                    }
+                    return a
+                }(),
+                l = function () {
+                    function a(a) {
+                        this.source = a,
+                        this.last = this.sinceLastUpdate = 0,
+                        this.rate = C.initialRate,
+                        this.catchup = 0,
+                        this.progress = this.lastProgress = 0,
+                        null != this.source && (this.progress = E(this.source, "progress"))
+                    }
+                    return a.prototype.tick = function (a, b) {
+                        var c;
+                        return null == b && (b = E(this.source, "progress")), b >= 100 && (this.done = !0), b === this.last ? this.sinceLastUpdate += a : (this.sinceLastUpdate && (this.rate = (b - this.last) / this.sinceLastUpdate),
+                        this.catchup = (b - this.progress) / C.catchupTime,
+                        this.sinceLastUpdate = 0,
+                        this.last = b), b > this.progress && (this.progress += this.catchup * a), c = 1 - Math.pow(this.progress / 100, C.easeFactor), this.progress += c * this.rate * a, this.progress = Math.min(this.lastProgress + C.maxProgressPerFrame, this.progress), this.progress = Math.max(0, this.progress), this.progress = Math.min(100, this.progress), this.lastProgress = this.progress, this.progress
+                    }, a
+                }(),
+                K = null,
+                G = null,
+                q = null,
+                L = null,
+                o = null,
+                r = null,
+                Pace.running = !1,
+                y = function () {
+                    return C.restartOnPushState ? Pace.restart() : void 0
+                },
+                null != window.history.pushState && (S = window.history.pushState, window.history.pushState = function () {
+                    return y(), S.apply(window.history, arguments)
+                }),
+                null != window.history.replaceState && (V = window.history.replaceState, window.history.replaceState = function () {
+                    return y(), V.apply(window.history, arguments)
+                }),
+                k = {
+                    ajax: a,
+                    elements: d,
+                    document: c,
+                    eventLag: f
+                },
+                (A = function () {
+                    var a,
+                        c,
+                        d,
+                        e,
+                        f,
+                        g,
+                        h,
+                        i;
+                    for (Pace.sources = K = [], g = [
+                        "ajax", "elements", "document", "eventLag"
+                    ], c = 0, e = g.length; e > c; c++) 
+                        a = g[c],
+                        C[a] !== !1 && K.push(new k[a](C[a]));
+                    for (i = null != (h = C.extraSources) ? h : [], d = 0, f = i.length; f > d; d++) 
+                        J = i[d],
+                        K.push(new J(C));
+                    return Pace.bar = q = new b, G = [], L = new l
+                })
+                (),
+                Pace.stop = function () {
+                    return Pace.trigger("stop"), Pace.running = !1, q.destroy(), r = !0, null != o && ("function" == typeof s && s(o),
+                    o = null), A()
+                },
+                Pace.restart = function () {
+                    return Pace.trigger("restart"), Pace.stop(), Pace.start()
+                },
+                Pace.go = function () {
+                    var a;
+                    return Pace.running = !0, q.render(), a = B(), r = !1, o = F(function (b, c) {
+                        var d,
+                            e,
+                            f,
+                            g,
+                            h,
+                            i,
+                            j,
+                            k,
+                            m,
+                            n,
+                            o,
+                            p,
+                            s,
+                            t,
+                            u,
+                            v;
+                        for (k = 100 - q.progress, e = o = 0, f = !0, i = p = 0, t = K.length; t > p; i =++ p) 
+                            for (J = K[i], n = null != G[i] ? G[i] : G[i] = [], h = null != (v = J.elements) ? v : [J], j = s = 0, u = h.length; u > s; j =++ s) 
+                                g = h[j],
+                                m = null != n[j] ? n[j] : n[j] = new l(g),
+                                f &= m.done,
+                                m.done || (e++, o += m.tick(b));
+                    return d = o / e, q.update(L.tick(b, d)), q.done() || f || r ? (q.update(100), Pace.trigger("done"), setTimeout(function () {
+                            return q.finish(), Pace.running = !1, Pace.trigger("hide")
+                        }, Math.max(C.ghostTime, Math.max(C.minTime - (B() - a), 0)))) : c()
+                    })
+                },
+                Pace.start = function (a) {
+                    u(C, a),
+                    Pace.running = !0;
+                    try {
+                        q.render()
+                    } catch (b) {
+                        i = b
+                    }
+                    return document.querySelector(".pace") ? (Pace.trigger("start"), Pace.go()) : setTimeout(Pace.start, 50)
+                },
+                "function" == typeof define && define.amd ? define(function () {
+                    return Pace
+                }) : "object" == typeof exports ? module.exports = Pace : C.startOnPageLoad && Pace.start()
+            }).call(this);
+        </script>
+        <style>
+            body {
+                font-family: Verdana;
+                /*background-color:rgba(177, 73, 38, 1);*/
+
+            }
+            .hover {
+                width: 1000px;
+                font-size: 5px;
+            }
+            .pace {
+                -webkit-pointer-events: none;
+                pointer-events: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+
+            }
+            .pace-inactive {
+                display: none;
+
+            }
+            .pace .pace-progress {
+                background-color: #24dd21;
+                position: fixed;
+                z-index: 2000;
+                top: 0;
+                left: 0;
+                height: 12px;
+                overflow: hidden;
+
+                -webkit-transition: width 1s;
+                -moz-transition: width 1s;
+                -o-transition: width 1s;
+                transition: width 1s;
+
+            }
+            .pace .pace-progress-inner {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: -32px;
+                bottom: 0;
+
+                background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+                background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+                background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+                -webkit-background-size: 32px 32px;
+                -moz-background-size: 32px 32px;
+                -o-background-size: 32px 32px;
+                background-size: 32px 32px;
+                -webkit-animation: pace-stripe-animation 500ms linear infinite;
+                -moz-animation: pace-stripe-animation 500ms linear infinite;
+
+                -ms-animation: pace-stripe-animation 500ms linear infinite;
+                -o-animation: pace-stripe-animation 500ms linear infinite;
+                animation: pace-stripe-animation 500ms linear infinite;
+
+            }
+            @-webkit-keyframes pace-stripe-animation {
+                0% {
+                    -webkit-transform: none;
+                    transform: none;
+                }
+                100% {
+                    -webkit-transform: translate(-32px, 0);
+                    transform: translate(-32px, 0);
+                }
+            }
+            @-moz-keyframes pace-stripe-animation {
+                0% {
+                    -moz-transform: none;
+                    transform: none;
+                }
+                100% {
+                    -moz-transform: translate(-32px, 0);
+                    transform: translate(-32px, 0);
+                }
+            }
+            @-o-keyframes pace-stripe-animation {
+                0% {
+                    -o-transform: none;
+                    transform: none;
+                }
+                100% {
+                    -o-transform: translate(-32px, 0);
+                    transform: translate(-32px, 0);
+                }
+            }
+            @-ms-keyframes pace-stripe-animation {
+                0% {
+                    -ms-transform: none;
+                    transform: none;
+                }
+                100% {
+                    -ms-transform: translate(-32px, 0);
+                    transform: translate(-32px, 0);
+                }
+            }
+            @keyframes pace-stripe-animation {
+                0% {
+                    transform: none;
+                }
+                100% {
+                    transform: translate(-32px, 0);
+                }
+            }
+            fieldset {
+                border: 0;
+
+            }
+            label {
+                display: block;
+                margin: 30px 0 0;
+
+            }
+            select {
+                width: 200px;
+
+            }
+            .overflow {
+                height: 200px;
+            }
+            .common-text {
+                font: 25px Verdana;
+            }
+            .problem {
+                border: 18px #f06 dotted;
+            }
+            .sl {
+                color: green;
+                font-weight: bold;
+            }
+            .sln {
+                color: green;
+
+            }
+            .prb {
+                color: red;
+            }
+            .canvas {
+                width: 50px;
+                height: 50px;
+
+            }
+            /*
+            *here is the rotation atom loading thingy*
+            .pace.pace-inactive {
+              display: none;
+            }
+
+            .pace {
+              -webkit-pointer-events: none;
+              pointer-events: none;
+
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              user-select: none;
+
+              z-index: 2000;
+              position: fixed;
+              height: 60px;
+              width: 100px;
+              margin: auto;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+            }
+
+            .pace .pace-progress {
+              z-index: 2000;
+              position: absolute;
+              height: 60px;
+              width: 100px !important;
+            }
+
+            .pace .pace-progress:before {
+              content: attr(data-progress-text);
+              text-align: center;
+              color: #fff;
+              background: #29d;
+              border-radius: 50%;
+              font-family: "Helvetica Neue", sans-serif;
+              font-size: 14px;
+              font-weight: 100;
+              line-height: 1;
+              padding: 20% 0 7px;
+              width: 50%;
+              height: 40%;
+              margin: 10px 0 0 30px;
+              display: block;
+              z-index: 999;
+              position: absolute;
+            }
+
+            .pace .pace-progress:after {
+              border-radius: 50%;
+              border: 5px solid #29d;
+              content: ' ';
+              display: block;
+              position: absolute;
+              top: 0;
+              left: 0;
+              height: 60px;
+              width: 100px;
+
+              -webkit-transform: rotate(90deg);
+                 -moz-transform: rotate(90deg);
+                   -o-transform: rotate(90deg);
+                      transform: rotate(90deg);
+              -webkit-animation: spin-3 2s linear infinite;
+                 -moz-animation: spin-3 2s linear infinite;
+                   -o-animation: spin-3 2s linear infinite;
+                      animation: spin-3 2s linear infinite;
+            }
+
+            .pace .pace-activity {
+              font-size: 15px;
+              line-height: 1;
+              z-index: 2000;
+              position: absolute;
+              height: 60px;
+              width: 100px;
+
+              display: block;
+            }
+
+            .pace .pace-activity:before {
+              border-radius: 50%;
+              border: 5px solid #29d;
+              content: ' ';
+              display: block;
+              position: absolute;
+              top: 0;
+              left: 0;
+              height: 60px;
+              width: 100px;
+
+              -webkit-animation: spin-1 2s linear infinite;
+                 -moz-animation: spin-1 2s linear infinite;
+                   -o-animation: spin-1 2s linear infinite;
+                      animation: spin-1 2s linear infinite;
+            }
+
+            .pace .pace-activity:after{
+              border-radius: 50%;
+              border: 5px solid #29d;
+              content: ' ';
+              display: block;
+              position: absolute;
+              top: 0;
+              left: 0;
+              height: 60px;
+              width: 100px;
+
+              -webkit-transform: rotate(45deg);
+                 -moz-transform: rotate(45deg);
+                   -o-transform: rotate(45deg);
+                      transform: rotate(45deg);
+              -webkit-animation: spin-2 2s linear infinite;
+                 -moz-animation: spin-2 2s linear infinite;
+                   -o-animation: spin-2 2s linear infinite;
+                      animation: spin-2 2s linear infinite;
+            }
+
+            @-webkit-keyframes spin-1 {
+              0%  { -webkit-transform: rotate(0deg); }
+              100%{ -webkit-transform: rotate(359deg);}
+            }
+            @-moz-keyframes spin-1 {
+              0%  { -moz-transform: rotate(0deg); }
+              100%{ -moz-transform: rotate(359deg);}
+            }
+            @-o-keyframes spin-1 {
+              0%  { -o-transform: rotate(0deg); }
+              100%{ -o-transform: rotate(359deg);}
+            }
+            @keyframes spin-1 {
+              0%  { transform: rotate(0deg); }
+              100%{ transform: rotate(359deg);}
+            }
+
+            @-webkit-keyframes spin-2 {
+              0%  { -webkit-transform: rotate(59.8deg); }
+              100%{ -webkit-transform: rotate(418.8deg);}
+            }
+            @-moz-keyframes spin-2 {
+              0%  { -moz-transform: rotate(59.8deg); }
+              100%{ -moz-transform: rotate(418.8deg);}
+            }
+            @-o-keyframes spin-2 {
+              0%  { -o-transform: rotate(59.8deg); }
+              100%{ -o-transform: rotate(418.8deg);}
+            }
+            @keyframes spin-2 {
+              0%  { transform: rotate(59.8deg); }
+              100%{ transform: rotate(418.8deg);}
+            }
+
+            @-webkit-keyframes spin-3 {
+              0%  { -webkit-transform: rotate(119.6deg); }
+              100%{ -webkit-transform: rotate(478.6deg);}
+            }
+            @-moz-keyframes spin-3 {
+              0%  { -moz-transform: rotate(119.6deg); }
+              100%{ -moz-transform: rotate(478.6deg);}
+            }
+            @-o-keyframes spin-3 {
+              0%  { -o-transform: rotate(119.6deg); }
+              100%{ -o-transform: rotate(478.6deg);}
+            }
+            @keyframes spin-3 {
+              0%  { transform: rotate(119.6deg); }
+              100%{ transform: rotate(478.6deg);}
+            }*/
+        </style>
+        <script>
+            $(function () {
+                $("#datepicker").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    showButtonPanel: true,
+                    numberOfMonths: 2
+                });
+                $("#format").change(function () {
+                    $("#datepicker").datepicker("option", "dateFormat", $(this).val());
+                });
+                $("#datepicker").datepicker($.datepicker.regional[""]);
+                $("#locale").change(function () {
+                    $("#datepicker").datepicker("option", $.datepicker.regional[$(this).val()]);
+                });
+            });
+            $(function () {
+                $("#datepicker1").datepicker({
+                    changeMonth: true,
+                    changeYear: true,
+                    showButtonPanel: true,
+                    numberOfMonths: 1 // or 2, but 1 is good for the normal date picker
+                });
+            });
+            // ending script tag goes here
+            //<script>
+            (function (factory) {
+                if (typeof define === "function" && define.amd) {
+
+                    // AMD. Register as an anonymous module.
+                    define(["../datepicker"], factory);
+                } else {
+
+                    // Browser globals
+                    factory(jQuery.datepicker);
+                }
+            }(function (datepicker) {
+
+                datepicker.regional['he'] = {
+                    closeText: 'סגור',
+                    prevText: '&#x3C;הקודם',
+                    nextText: 'הבא&#x3E;',
+                    currentText: 'היום',
+                    monthNames: [
+                        'ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 'יוני', 'יולי', 'אוגוסט', 'ספטמבר', 'אוקטובר', 'נובמבר', 'דצמבר'
+                    ],
+                    monthNamesShort: [
+                        'ינו', 'פבר', 'מרץ', 'אפר', 'מאי', 'יוני', 'יולי', 'אוג', 'ספט', 'אוק', 'נוב', 'דצמ'
+                    ],
+                    dayNames: [
+                        'ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'
+                    ],
+                    dayNamesShort: [
+                        'א\'', 'ב\'', 'ג\'', 'ד\'', 'ה\'', 'ו\'', 'שבת'
+                    ],
+                    dayNamesMin: [
+                        'א\'', 'ב\'', 'ג\'', 'ד\'', 'ה\'', 'ו\'', 'שבת'
+                    ],
+                    weekHeader: 'Wk',
+                    dateFormat: 'dd/mm/yy',
+                    firstDay: 0,
+                    isRTL: true,
+                    showMonthAfterYear: false,
+                    yearSuffix: ''
+                };
+
+            }));
+
+            (function (factory) {
+                if (typeof define === "function" && define.amd) {
+
+                    // AMD. Register as an anonymous module.
+                    define(["../datepicker"], factory);
+                } else {
+
+                    // Browser globals
+                    factory(jQuery.datepicker);
+                }
+            }(function (datepicker) {
+
+                datepicker.regional['fr'] = {
+                    closeText: 'Fermer',
+                    prevText: '&#x3c;Préc',
+                    nextText: 'Suiv&#x3e;',
+                    currentText: 'Aujourd\'hui',
+                    monthNames: [
+                        'Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'
+                    ],
+                    monthNamesShort: [
+                        'Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'
+                    ],
+                    dayNames: [
+                        'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'
+                    ],
+                    dayNamesShort: [
+                        'Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'
+                    ],
+                    dayNamesMin: [
+                        'Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'
+                    ],
+                    weekHeader: 'Sm',
+                    dateFormat: 'dd-mm-yy',
+                    firstDay: 1,
+                    isRTL: false,
+                    showMonthAfterYear: false,
+                    yearSuffix: '',
+                    minDate: 0,
+                    maxDate: '+12M +0D',
+                    numberOfMonths: 2,
+                    showButtonPanel: true
+                };
+
+            }));
+            (function (factory) {
+                if (typeof define === "function" && define.amd) {
+
+                    // AMD. Register as an anonymous module.
+                    define(["../datepicker"], factory);
+                } else {
+
+                    // Browser globals
+                    factory(jQuery.datepicker);
+                }
+            }(function (datepicker) {
+
+                datepicker.regional['ar'] = {
+                    closeText: 'إغلاق',
+                    prevText: '&#x3C;السابق',
+                    nextText: 'التالي&#x3E;',
+                    currentText: 'اليوم',
+                    monthNames: [
+                        'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
+                    ],
+                    monthNamesShort: [
+                        '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
+                    ],
+                    dayNames: [
+                        'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'
+                    ],
+                    dayNamesShort: [
+                        'أحد', 'اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'
+                    ],
+                    dayNamesMin: [
+                        'ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'
+                    ],
+                    weekHeader: 'أسبوع',
+                    dateFormat: 'dd/mm/yy',
+                    firstDay: 0,
+                    isRTL: true,
+                    showMonthAfterYear: false,
+                    yearSuffix: ''
+                };
+
+            }));
+            (function (factory) {
+                if (typeof define === "function" && define.amd) {
+
+                    // AMD. Register as an anonymous module.
+                    define(["../datepicker"], factory);
+                } else {
+
+                    // Browser globals
+                    factory(jQuery.datepicker);
+                }
+            }(function (datepicker) {
+
+                datepicker.regional['zh-TW'] = {
+                    closeText: '關閉',
+                    prevText: '&#x3C;上月',
+                    nextText: '下月&#x3E;',
+                    currentText: '今天',
+                    monthNames: [
+                        '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'
+                    ],
+                    monthNamesShort: [
+                        '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'
+                    ],
+                    dayNames: [
+                        '星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'
+                    ],
+                    dayNamesShort: [
+                        '周日', '周一', '周二', '周三', '周四', '周五', '周六'
+                    ],
+                    dayNamesMin: [
+                        '日', '一', '二', '三', '四', '五', '六'
+                    ],
+                    weekHeader: '周',
+                    dateFormat: 'yy/mm/dd',
+                    firstDay: 1,
+                    isRTL: false,
+                    showMonthAfterYear: true,
+                    yearSuffix: '年'
+                };
+
+            }));
+            (function (factory) {
+                if (typeof define === "function" && define.amd) {
+
+                    // AMD. Register as an anonymous module.
+                    define(["../datepicker"], factory);
+                } else {
+
+                    // Browser globals
+                    factory(jQuery.datepicker);
+                }
+            }(function (datepicker) {
+
+                datepicker.regional['es'] = {
+                    closeText: 'Cerrar',
+                    prevText: '&#x3C;Ant',
+                    nextText: 'Sig&#x3E;',
+                    currentText: 'Hoy',
+                    monthNames: [
+                        'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+                    ],
+                    monthNamesShort: [
+                        'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
+                    ],
+                    dayNames: [
+                        'domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'
+                    ],
+                    dayNamesShort: [
+                        'dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'
+                    ],
+                    dayNamesMin: [
+                        'D', 'L', 'M', 'X', 'J', 'V', 'S'
+                    ],
+                    weekHeader: 'Sm',
+                    dateFormat: 'dd/mm/yy',
+                    firstDay: 1,
+                    isRTL: false,
+                    showMonthAfterYear: false,
+                    yearSuffix: ''
+                };
+
+            }));
+            (function (factory) {
+                if (typeof define === "function" && define.amd) {
+
+                    // AMD. Register as an anonymous module.
+                    define(["../datepicker"], factory);
+                } else {
+
+                    // Browser globals
+                    factory(jQuery.datepicker);
+                }
+            }(function (datepicker) {
+
+                datepicker.regional['hr'] = {
+                    closeText: 'Zatvori',
+                    prevText: '&#x3C;',
+                    nextText: '&#x3E;',
+                    currentText: 'Danas',
+                    monthNames: [
+                        'Siječanj', 'Veljača', 'Ožujak', 'Travanj', 'Svibanj', 'Lipanj', 'Srpanj', 'Kolovoz', 'Rujan', 'Listopad', 'Studeni', 'Prosinac'
+                    ],
+                    monthNamesShort: [
+                        'Sij', 'Velj', 'Ožu', 'Tra', 'Svi', 'Lip', 'Srp', 'Kol', 'Ruj', 'Lis', 'Stu', 'Pro'
+                    ],
+                    dayNames: [
+                        'Nedjelja', 'Ponedjeljak', 'Utorak', 'Srijeda', 'Četvrtak', 'Petak', 'Subota'
+                    ],
+                    dayNamesShort: [
+                        'Ned', 'Pon', 'Uto', 'Sri', 'Čet', 'Pet', 'Sub'
+                    ],
+                    dayNamesMin: [
+                        'Ne', 'Po', 'Ut', 'Sr', 'Če', 'Pe', 'Su'
+                    ],
+                    weekHeader: 'Tje',
+                    dateFormat: 'dd.mm.yy.',
+                    firstDay: 1,
+                    isRTL: false,
+                    showMonthAfterYear: false,
+                    yearSuffix: ''
+                };
+
+            }));
+            $("#format").selectmenu();
+
+            $("#locale").selectmenu();
+
+            // --> /*ending script tag goes here*/
+            //  <script>
+
+            $(function () {
+
+                $("#speed").selectmenu();
+
+                $("#files").selectmenu();
+
+                $("#number").selectmenu().selectmenu("menuWidget").addClass("overflow");
+
+            });
+        </script>
+        <!--
+            <style>
+        fieldset {
+            border: 0;
+        }
+        
+        label {
+            display: block;
+            margin: 30px 0 0 0;
+        }
+        
+        select {
+            width: 200px;
+        }
+        
+        .overflow {
+            height: 200px;
+        }
+         .common-text {
+        	font:25px Verdana;
+        	}
+        	.problem {
+        	border:18px #FF0066 dotted;
+        }
+        .sl {
+        	color:green;
+        	font-weight:bold;
+        }
+        .sln {
+        	color:green;
+        	
+        }
+        .prb {
+        	color:red;
+        }
+        .canvas {
+        	width: 50px;
+        	height: 50px;
+        }
+            </style>
+        -->
+    </head>
+    <body id='body' onload="document.getElementById('date').innerText = Date();document.getElementById('date1').innerText = Date();">
+        <noscript>
+            &lt;h1 class="common-text"&gt;Please enable the "Active-X" content, thank
+            you.&lt;/h1&gt; &lt;button
+            onclick="alert('hello');"&gt;hi&lt;/button&gt;
+        </noscript>
+        <!--<p style="font-family:'Segoe UI';color: rgb(0, 132, 201);font-weight:400;font-size:30px;">This is dedicated to Mommy, so she will never forget the date and time.<br/>Love you so much Mommy : ) ; )</p>-->
+        <hr/>
+        <div id="normal"><h1 style="font-family:Verdana;">Normal Date
+            Picker:&nbsp;</h1>
+            <span style="color: #404040; font-weight: 400; font-family: 'Segoe UI';font-size:25px;">Today's
+                Date:</span>
+            <p id="date1" style="font-family:verdana,helvetica,arial,sans-serif;color:rgb(167, 201, 66);font-size:25px;"></p>
+            <p style="font-family:Arial, Helvetica, sans-serif, Verdana;color:#B24926;font-size:25px;"><span>Date:&nbsp;</span><input type="text" placeholder="Select Date" id="datepicker1" style="width:400px;height:30px;border:5px solid dodgerblue;background-color:white;color:crimson;border-radius:8px 8px;font:18px 'Segoe UI';font-weight:bold;"/></p>
+        </div>
+        <br/><hr/><br/>
+        <div id="hello">
+            <h1 style="font-family: Verdana;">Advanced Date Picker</h1>
+            <span style="color: #404040; font-weight: 400; font-family: 'Segoe UI';font-size:25px;">Today's
+                Date:</span>
+            <p id="date" style="font-family:verdana,helvetica,arial,sans-serif;color:rgb(167, 201, 66);font-size:25px;"></p>
+            <p>
+                <span style="color: rgb(0, 132, 201); font-weight: 400; font-family: 'Segoe UI';font-size:25px;">Format
+                    &amp; Localization options:<br></span>
+                <select id="speed" name="speed" class="ui-state-default" style="width:450px">
+                    <option value="mm/dd/yy">Default - mm/dd/yy</option>
+                    <option value="yy-mm-dd">ISO 8601 - yy-mm-dd</option>
+                    <option value="d M, y">Short - d M, y</option>
+                    <option value="d MM, y">Medium - d MM, y</option>
+                    <option value="DD, d MM, yy">Full - DD, d MM, yy</option>
+                    <option value="&apos;day&apos; d &apos;of&apos; MM &apos;in the year&apos; yy">With
+                        text - 'day' d 'of' MM 'in the year' yy</option>
+                </select>
+                <select id="files" name="files" class="ui-state-default" style="width:350px">
+                    <option value="" class="local">Select Localization</option>
+                    <option value="" class="local">English (English)</option>
+                    <option value="he" class="local">Hebrew
+                        (&#8235;(&#1506;&#1489;&#1512;&#1497;&#1514;</option>
+                    <option value="hr" class="local">Croation (Hervatski)</option>
+                    <option value="es" class="local">Spanish
+                        (&#69;&#115;&#112;&#97;&#241;&#111;&#108;)</option>
+                    <option value="ar" class="local">Arabic
+                        (&#8235;(&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;</option>
+                    <option value="zh-TW" class="local" id="test">Chinese Traditional
+                        (&#32321;&#39636;&#20013;&#25991;)</option>
+                    <option value="fr" class="local">French (Fran&ccedil;ais)</option>
+                </select>
+            </p>
+            <p style="font-family:Arial, Helvetica, sans-serif, Verdana;color:#0769AD;font-size:25px;">Select
+                Date:</p>
+            <p style="font-family:Arial, Helvetica, sans-serif, Verdana;color:#B24926;font-size:25px;">Date:
+                <input type="text" placeholder="Select Date" id="datepicker" style="width:400px;height:30px;border:5px solid dodgerblue;background-color:white;color:crimson/*dodgerblue*/;border-radius:8px 8px;font:18px 'Segoe UI';font-weight:bold;">&nbsp;</p>
+        </div>
+        <!--<canvas class="canvas" style="background-color:#f55314"></canvas>&nbsp;<canvas class="canvas" style="background-color:#7cba00"></canvas> 
+        <br/>	<h1 style="background-color: rgb(0, 132, 201); font-weight: 400; font-family: 'Segoe UI';color:white;width:105.33px;height:42.56px">Surface</h1>
+        <canvas class="canvas" style="background-color:#00a0f0"></canvas>&nbsp;<canvas class="canvas" style="background-color:#feba00"></canvas> -->
+    </body>
+</html>
